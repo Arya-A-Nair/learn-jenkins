@@ -1,23 +1,41 @@
 pipeline {
     agent any
+
     stages {
-        stage('Build') {
+        stage('Setup Environment') {
             steps {
-                echo 'Building...'
-                // Add steps to execute your build commands, e.g., compilation
+                echo 'Setting up Python environment...'
+                sh '''
+                    if [ -f requirements.txt ]; then
+                        pip install -r requirements.txt
+                    fi
+                '''
             }
         }
-        stage('Test') {
+
+        stage('Run Python Script') {
             steps {
-                echo 'Testing...'
-                // Add test scripts or commands
+                echo 'Running Python script...'
+                sh 'python3 script.py '
             }
         }
-        stage('Deploy') {
+
+        stage('Post Execution') {
             steps {
-                echo 'Deploying...'
-                // Add deployment commands
+                echo 'Cleaning up or generating reports...'
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline finished.'
+        }
+        success {
+            echo 'Pipeline completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed.'
         }
     }
 }
