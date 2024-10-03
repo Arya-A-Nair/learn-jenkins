@@ -8,14 +8,12 @@ pipeline {
     }
 
     environment {
-        PATH = "${tool 'myDocker'}/bin:${env.PATH}"
+        PATH = "${tool 'docker'}/bin:${env.PATH}"
         DOCKER_IMAGE = 'aryanair09/exp6:latest'
     }
 
     stages {
         stage('Setup Environment') {
-            def dockerHome = tool 'docker'
-            env.PATH = "${dockerHome}/bin:${env.PATH}"
             steps {
                 
                 echo 'Setting up Python environment...'
