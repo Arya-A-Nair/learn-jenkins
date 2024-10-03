@@ -8,6 +8,10 @@ pipeline {
     }
 
     stages {
+        stage('Initialize'){
+        def dockerHome = tool 'myDocker'
+        env.PATH = "${dockerHome}/bin:${env.PATH}"
+    }
         stage('Setup Environment') {
             steps {
                 echo 'Setting up Python environment...'
