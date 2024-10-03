@@ -3,7 +3,12 @@ pipeline {
         docker { image 'python:3' }
     }
 
+    tools {
+        dockerTool 'myDocker'
+    }
+
     environment {
+        PATH = "${tool 'myDocker'}/bin:${env.PATH}"
         DOCKER_IMAGE = 'aryanair09/exp6:latest'
     }
 
