@@ -8,12 +8,10 @@ pipeline {
     }
 
     stages {
-        stage('Initialize'){
-        def dockerHome = tool 'myDocker'
-        env.PATH = "${dockerHome}/bin:${env.PATH}"
-    }
         stage('Setup Environment') {
             steps {
+                def dockerHome = tool 'myDocker'
+                env.PATH = "${dockerHome}/bin:${env.PATH}"
                 echo 'Setting up Python environment...'
                 sh '''
                     if [ -f requirements.txt ]; then
